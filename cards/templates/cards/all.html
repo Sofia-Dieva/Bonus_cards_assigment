@@ -1,0 +1,18 @@
+{% extends 'cards/base.html' %}
+
+{% block title %}Все карты{% endblock %}
+
+{% block content %}
+{% if all_cards %}
+{% for card in all_cards %}
+<div class="alert alert-warning mt-2 bg-light">
+    <p>Серия: {{card.number}}</p>
+    <p>Номер: {{card.pk}}</p>
+    <p>Дата выпуска: {{card.date_time}}</p>
+    <p>Дата окончания активности: {{card.expiry}}</p>
+    <p>Статус: {{card.status}}</p>
+    <p class="link-read-post read"><a href="{% url 'card' card.pk %}">Посмотреть информацию по карте</a></p>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock %}

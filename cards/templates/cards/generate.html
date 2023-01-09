@@ -1,0 +1,24 @@
+{% extends 'cards/base.html' %}
+
+{% block title %}Генератор карт{% endblock %}
+
+{% block content %}
+<h3>Генератор карт</h3>
+<form class="form-inline my-2 my-lg-0" action="{% url 'generate' %}">
+    <input class="form-control mr-sm-2" style="width: 40%" type="search" placeholder="Серия" aria-label="number" name="number"><br>
+    <input class="form-control mr-sm-2" style="width: 40%" type="search" placeholder="Количество" aria-label="count" name="count"><br>
+    <div class="form-group col-md-4">
+        <label for="expiry">Выберите срок окончания карты</label>
+        <select id="expiry" class="form-control" name="expiry">
+          <option selected>Выбрать...</option>
+          {% for cat in expiry %}
+          <option value="{{ cat }}">{{ cat }}</option>
+          {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary" style="margin-top: 1%">Сгенерировать</button>
+</form>
+{% if warning %}
+{{warning}}
+{% endif %}
+{% endblock %}

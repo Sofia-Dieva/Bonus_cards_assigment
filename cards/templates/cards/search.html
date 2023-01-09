@@ -1,0 +1,99 @@
+{% extends 'cards/base.html' %}
+
+{% block title %}Поиск{% endblock %}
+
+{% block content %}
+<div style="display: flex; flex-direction: column; align-items: center;">
+<h2 style="text-align: center;">Поиск</h2>
+    <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}">
+        <input class="form-control-lg mr-sm-2" type="search" placeholder="Поиск" aria-label="Search" name="search">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="number" name="number">
+            <label class="form-check-label" for="number">
+              серия
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="pk" name="pk">
+            <label class="form-check-label" for="pk">
+              номер
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="date_time" name="date_time">
+            <label class="form-check-label" for="date_time">
+              дата выпуска
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="expiry" name="expiry">
+            <label class="form-check-label" for="expiry">
+              дата окончания активности
+            </label>
+          </div>
+          <div class="form-select-lg" style="text-align:center;padding-left: 0%">
+            <label for="status" >Статус карты</label>
+            <select id="status" class="form-control" name="status">
+              <option selected>Выбрать...</option>
+              {% for choice in status %}
+              <option value="{{ choice }}">{{ choice }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        <button type="submit" class="btn btn-primary" style="position: relative; left: 50%;
+        transform: translate(-50%, 0);">Найти</button>
+    </form>
+</div>
+{% if number %}
+<h3>Результаты поиска по серии карты</h3>
+{% for card in number %}
+<div>
+    <p>{{card.number}}</p>
+    <p>{{card.pk}}</p>
+    <p>{{card.date_time}}</p>
+    <p>{{card.expiry}}</p>
+    <p>{{card.status}}</p>
+    <p class="link-read-post read"><a href="{% url 'card' card.pk %}">Посмотреть информацию по карте</a></p>
+</div>
+{% endfor %}
+{% endif %}
+{% if pk %}
+<h3>Результаты поиска по номеру карты</h3>
+{% for card in pk %}
+<div>
+    <p>{{card.number}}</p>
+    <p>{{card.pk}}</p>
+    <p>{{card.date_time}}</p>
+    <p>{{card.expiry}}</p>
+    <p>{{card.status}}</p>
+    <p class="link-read-post read"><a href="{% url 'card' card.pk %}">Посмотреть информацию по карте</a></p>
+</div>
+{% endfor %}
+{% endif %}
+{% if date_time %}
+<h3>Результаты поиска по дате выпуска карты</h3>
+{% for card in date_time %}
+<div>
+    <p>{{card.number}}</p>
+    <p>{{card.pk}}</p>
+    <p>{{card.date_time}}</p>
+    <p>{{card.expiry}}</p>
+    <p>{{card.status}}</p>
+    <p class="link-read-post read"><a href="{% url 'card' card.pk %}">Посмотреть информацию по карте</a></p>
+</div>
+{% endfor %}
+{% endif %}
+{% if expiry %}
+<h3>Результаты поиска по дате окончания активности карты</h3>
+{% for card in expiry %}
+<div>
+    <p>{{card.number}}</p>
+    <p>{{card.pk}}</p>
+    <p>{{card.date_time}}</p>
+    <p>{{card.expiry}}</p>
+    <p>{{card.status}}</p>
+    <p class="link-read-post read"><a href="{% url 'card' card.pk %}">Посмотреть информацию по карте</a></p>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock %}

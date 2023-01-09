@@ -1,0 +1,29 @@
+{% extends 'cards/base.html' %}
+
+{% block title %}Карта {{ object.number }}{% endblock %}
+
+{% block content %}
+    <h1>{{ object.number }}</h1>
+    <h3>Покупки:</h3>
+    {% if all_purchase %}
+    {% for item in all_purchase%}
+        <p>Наименование товара: {{item.name}}</p>
+        <p>Цена: {{item.bill}}</p>
+        <p>Время и дата покупки: {{item.shopping_date}}</p>
+    {% endfor %}
+    {% else %}
+    <p>Пока нет совершенных покупок</p>
+    {% endif %}
+    {% if object.status == 'Activated' %}
+        <form style="margin-top:1%" action="" method="post">{% csrf_token %}
+            <input type="submit" name="deactivate" value="Деактивировать карту" />
+        </form>
+    {% else %}
+        <form style="margin-top:1%" action="" method="post">{% csrf_token %}
+            <input type="submit" name="activate" value="Активировать карту" />
+        </form>
+    {% endif %}
+        <form style="margin-top:1%" action="" method="post">{% csrf_token %}
+            <input type="submit" name="delete" value="Удалить карту" />
+        </form>
+{% endblock %}
